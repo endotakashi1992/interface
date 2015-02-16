@@ -1,7 +1,9 @@
 app = require('express')()
 
-app.get '/',(req,res)->
-  res.json {message:"ok"}
+app.get '/:resource',(req,res)->
+  res.json []
+app.get '/:resource/:id',(req,res)->
+  res.json {}
 
 module.exports = ->
   app.listen '3000',->

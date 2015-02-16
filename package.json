@@ -7,6 +7,7 @@
     "test": "test"
   },
   "dependencies": {
+    "chai": "^2.0.0",
     "mocha": "^2.1.0",
     "restler": "^3.2.2"
   },
