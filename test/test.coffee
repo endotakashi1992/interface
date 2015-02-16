@@ -1,14 +1,10 @@
 assert = require("assert")
+rest = require('restler')
+app = require('../app')()
 
-describe "#indexOf()", ->
-  it "should return -1 when the value is not present", ->
-    assert.equal -1, [
-      1
-      2
-      3
-    ].indexOf(5)
-    assert.equal -1, [
-      1
-      2
-      3
-    ].indexOf(0)
+describe "HTTP", ->
+  it "shuld be exist /",(done)->
+    rest.get 'http://localhost:3000'
+    .on 'success',(data)->
+      assert.ok data
+      done()
