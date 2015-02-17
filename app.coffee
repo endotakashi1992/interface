@@ -5,27 +5,31 @@ redis = require("redis")
 client = redis.createClient()
 
 bodyParser = require('body-parser')
-# eventsource = require('./eventsource')
-
+eventsource = require('./eventsource')
+app = eventsource(app)
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
-# app.use(eventsource)
 
-
-app.get '/:resource',(req,res,next)->
+app.all '/:resource',(req,res,next)->
   if req.headers.accept is 'text/event-stream'
     res.writeHead 200,
       'Content-Type': 'text/event-stream'
       'Cache-Control': 'no-cache'
       'Connection': 'keep-alive'
     res.write '\n'
-    setInterval ->
-      res.write 'data: ' + "message" + '\n\n'
-    ,1000
+    res.emit = (message)->
+      res.write 'data: ' + message + '\n\n'
+    next()
   else
     next()
+
+
+app.es '/:resource',(req,res,next)->
+  setTimeout ->
+    res.emit("hello")
+  ,1000
 
 app.get '/:resource',(req,res)->
   resource = req.params.resource
