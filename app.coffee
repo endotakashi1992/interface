@@ -1,15 +1,18 @@
 async = require('async')
 cors = require('cors')
 app = require('express')()
+redis = require("redis")
+client = redis.createClient()
 
 bodyParser = require('body-parser')
+# eventsource = require('./eventsource')
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(cors());
+app.use(cors())
+# app.use(eventsource)
 
-redis = require("redis")
-client = redis.createClient()
 
 app.get '/:resource',(req,res,next)->
   if req.headers.accept is 'text/event-stream'
