@@ -12,20 +12,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.all '/:resource',(req,res,next)->
-  if req.headers.accept is 'text/event-stream'
-    res.writeHead 200,
-      'Content-Type': 'text/event-stream'
-      'Cache-Control': 'no-cache'
-      'Connection': 'keep-alive'
-    res.write '\n'
-    res.emit = (message)->
-      res.write 'data: ' + message + '\n\n'
-    next()
-  else
-    next()
-
-
 app.es '/:resource',(req,res,next)->
   setTimeout ->
     res.emit("hello")
