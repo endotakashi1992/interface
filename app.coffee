@@ -15,9 +15,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.stream '/:resource',(req,res,next)->
+app.stream '/:resource',(req,res)->
   setTimeout ->
-    res.emit("hello")
+    res.stream.push "hello"
   ,1000
 
 app.get '/:resource',(req,res)->
