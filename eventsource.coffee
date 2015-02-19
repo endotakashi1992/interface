@@ -1,6 +1,5 @@
 Readable = require('stream').Readable;
 
-
 module.exports = (app)->
   app.stream = (path,cb)->
     app.get path,(req,res,next)->
