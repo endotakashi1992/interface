@@ -1,7 +1,6 @@
 async = require('async')
 cors = require('cors')
 app = require('express')()
-
 redis = require("redis")
 REDIS_HOST = process.env.SERVER_REDIS_1_PORT_6379_TCP_ADDR || "127.0.0.1"
 REDIS_PORT = process.env.SERVER_REDIS_1_PORT_6379_TCP_PORT || 6379
@@ -15,9 +14,13 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
 
+EventEmitter = require('events').EventEmitter;
+
 app.stream '/:resource',(req,res)->
-  setTimeout ->
-    res.stream.push "hello"
+  es = new EventEmitter
+  res.stream(es)
+  setInterval ->
+     es.emit('data',"anodesune!!!!!!!!!!")
   ,1000
 
 app.get '/:resource',(req,res)->

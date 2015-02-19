@@ -1,5 +1,3 @@
-Readable = require('stream').Readable;
-
 module.exports = (app)->
   app.stream = (path,cb)->
     app.get path,(req,res,next)->
@@ -9,12 +7,9 @@ module.exports = (app)->
           'Cache-Control': 'no-cache'
           'Connection': 'keep-alive'
         res.write '\n'
-        stream = Readable()
-        stream.on 'data',(message)->
-          res.write 'data: ' + message + '\n\n'
-        stream.on 'exit', console.info
-        stream.on 'error', console.info
-        res.stream = stream
+        res.stream = (ev)->
+          ev.on 'data',(message)->
+            res.write 'data: ' + message + '\n\n'
         cb(req,res,next)
       else
         next()
