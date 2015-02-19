@@ -17,11 +17,12 @@
     "restler": "^3.2.2"
   },
   "devDependencies": {
-    "coffee-script": "^1.8.0"
+    "chai": "^2.0.0",
+    "coffee-script": "^1.9.1"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script/register",
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC"

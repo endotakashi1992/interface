@@ -1,8 +1,11 @@
 async = require('async')
 cors = require('cors')
 app = require('express')()
+
 redis = require("redis")
-client = redis.createClient()
+REDIS_HOST = process.env.SERVER_REDIS_1_PORT_6379_TCP_ADDR
+REDIS_PORT = process.env.SERVER_REDIS_1_PORT_6379_TCP_PORT
+client = redis.createClient(REDIS_PORT,REDIS_HOST)
 
 bodyParser = require('body-parser')
 eventsource = require('./eventsource')
