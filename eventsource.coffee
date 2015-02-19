@@ -1,5 +1,5 @@
 module.exports = (app)->
-  app.es = (path,cb)->
+  app.stream = (path,cb)->
     app.get path,(req,res,next)->
       if req.headers.accept is 'text/event-stream'
         res.writeHead 200,

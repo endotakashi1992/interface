@@ -3,8 +3,8 @@ cors = require('cors')
 app = require('express')()
 
 redis = require("redis")
-REDIS_HOST = process.env.SERVER_REDIS_1_PORT_6379_TCP_ADDR
-REDIS_PORT = process.env.SERVER_REDIS_1_PORT_6379_TCP_PORT
+REDIS_HOST = process.env.SERVER_REDIS_1_PORT_6379_TCP_ADDR || "127.0.0.1"
+REDIS_PORT = process.env.SERVER_REDIS_1_PORT_6379_TCP_PORT || 6379
 client = redis.createClient(REDIS_PORT,REDIS_HOST)
 
 bodyParser = require('body-parser')
@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.es '/:resource',(req,res,next)->
+app.stream '/:resource',(req,res,next)->
   setTimeout ->
     res.emit("hello")
   ,1000
